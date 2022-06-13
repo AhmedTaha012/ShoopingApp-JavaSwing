@@ -11,7 +11,7 @@ package project.shooping;
 public class PaymentFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form PaymentFrame
+     * Creates new form ProductsFrame
      */
     public PaymentFrame() {
         initComponents();
@@ -67,6 +67,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PaymentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
