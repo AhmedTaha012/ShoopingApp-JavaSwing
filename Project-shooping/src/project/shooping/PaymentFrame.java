@@ -78,6 +78,13 @@ public class PaymentFrame extends javax.swing.JFrame {
         });
     }
 
+    public static class setVisible {
+
+        public setVisible(boolean b) {
+            new PaymentFrame().setVisible(b);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

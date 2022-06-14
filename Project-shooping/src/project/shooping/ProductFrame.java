@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package project.shooping;
+import Controlling_the_products.Cart;
+import Controlling_the_products.Company;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Controlling_the_products.Products;
+import Controlling_the_products.person;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 public class ProductFrame extends javax.swing.JFrame {
     /////////////////////////////Intializations////////////////////////////////////////////////////
@@ -18,9 +21,9 @@ public class ProductFrame extends javax.swing.JFrame {
         
         
         initComponents();
-        
-        
-                jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+        showing_home_page();
+       
+    jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
     @Override
     protected void configureScrollBarColors() {
         this.thumbColor = Color.LIGHT_GRAY;
@@ -49,40 +52,7 @@ public class ProductFrame extends javax.swing.JFrame {
     j1.setBackground(new Color(109,82,159));
    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,7 +66,7 @@ public class ProductFrame extends javax.swing.JFrame {
         AddProductLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        LogOutLabel = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
         SmartPhonesPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -136,6 +106,7 @@ public class ProductFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
+        setBounds(new java.awt.Rectangle(300, 100, 0, 0));
 
         jPanel2.setBackground(new java.awt.Color(109, 82, 159));
         jPanel2.setForeground(new java.awt.Color(255, 153, 255));
@@ -153,6 +124,9 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
         LogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogOutMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 LogOutMouseExited(evt);
             }
@@ -183,6 +157,9 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
         Cart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CartMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 CartMouseExited(evt);
             }
@@ -191,6 +168,11 @@ public class ProductFrame extends javax.swing.JFrame {
         AddProductLabel.setBackground(new java.awt.Color(109, 82, 159));
         AddProductLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-add-product-50.png"))); // NOI18N
         AddProductLabel.setOpaque(true);
+        AddProductLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddProductLabelMouseClicked(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(109, 82, 159));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-shop-50.png"))); // NOI18N
@@ -199,8 +181,20 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("HAPPYSHOOP");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-sign-out-24.png"))); // NOI18N
-        jLabel9.setToolTipText("logout");
+        LogOutLabel.setBackground(new java.awt.Color(109, 82, 159));
+        LogOutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-logout-50(1).png"))); // NOI18N
+        LogOutLabel.setToolTipText("logout");
+        LogOutLabel.setOpaque(true);
+        LogOutLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                LogOutLabelMouseMoved(evt);
+            }
+        });
+        LogOutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LogOutLabelMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -209,12 +203,12 @@ public class ProductFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(Home)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addGap(385, 385, 385)
+                .addComponent(LogOutLabel)
+                .addGap(402, 402, 402)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 415, Short.MAX_VALUE)
                 .addComponent(AddProductLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Cart)
@@ -225,20 +219,17 @@ public class ProductFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(LogOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Home)
                     .addComponent(Cart)
                     .addComponent(AddProductLabel)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(LogOutLabel))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel9)))
-                .addContainerGap())
         );
 
         MainPanel.setBackground(new java.awt.Color(109, 82, 159));
@@ -277,6 +268,9 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
         HomePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HomePanelMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 HomePanelMouseExited(evt);
             }
@@ -736,6 +730,53 @@ public class ProductFrame extends javax.swing.JFrame {
          AllInPanel.repaint();
     }//GEN-LAST:event_SmartPhonesPanelMouseClicked
 
+    private void LogOutLabelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutLabelMouseMoved
+         setLabelBackground(LogOutLabel);
+    }//GEN-LAST:event_LogOutLabelMouseMoved
+
+    private void LogOutLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutLabelMouseExited
+       resetLabelBackground(LogOutLabel);
+    }//GEN-LAST:event_LogOutLabelMouseExited
+
+    private void CartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CartMouseClicked
+         AllInPanel.removeAll();
+         Cart cr=new Cart();
+         person pr=new person();
+         cr.view_product(AllInPanel, jScrollPane1,"'MohamedAli'");
+         AllInPanel.revalidate();
+         AllInPanel.repaint();
+    }//GEN-LAST:event_CartMouseClicked
+
+    private void LogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_LogOutMouseClicked
+
+    private void HomePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomePanelMouseClicked
+        // TODO add your handling code here:
+        showing_home_page();
+    }//GEN-LAST:event_HomePanelMouseClicked
+
+    private void AddProductLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddProductLabelMouseClicked
+        // TODO add your handling code here:
+        
+        AllInPanel.removeAll();
+         Company pr=new Company();
+         pr.display_add_product(AllInPanel, jScrollPane1);
+         AllInPanel.revalidate();
+         AllInPanel.repaint();        
+                
+                
+                
+    }//GEN-LAST:event_AddProductLabelMouseClicked
+
+    public void showing_home_page(){
+        AllInPanel.removeAll();
+         Products pr=new Products();
+         pr.Drawing_Home_page(AllInPanel, jScrollPane1);
+         AllInPanel.revalidate();
+         AllInPanel.repaint();
+    
+    }
     
     
     
@@ -751,25 +792,7 @@ public class ProductFrame extends javax.swing.JFrame {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -815,6 +838,7 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JLabel LaptopsIcon;
     private javax.swing.JPanel LaptopsPanel;
     private javax.swing.JLabel LogOut;
+    private javax.swing.JLabel LogOutLabel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel SmartPhonesIcon;
     private javax.swing.JPanel SmartPhonesPanel;
@@ -828,7 +852,6 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -838,4 +861,13 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+
+    public static class setVisible {
+
+        public setVisible(boolean b) {
+            new ProductFrame().setVisible(b);
+        }
+    }
+
+   
 }
