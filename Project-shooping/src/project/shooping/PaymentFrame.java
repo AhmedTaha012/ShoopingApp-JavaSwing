@@ -376,6 +376,13 @@ public class PaymentFrame extends javax.swing.JFrame {
     }
     
 
+    public static class setVisible {
+
+        public setVisible(boolean b) {
+            new PaymentFrame().setVisible(b);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SUBSCRIBE;
     private javax.swing.JLabel jLabel1;
