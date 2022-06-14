@@ -6,6 +6,7 @@ package Controlling_the_products;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -113,16 +114,16 @@ public class Products {
  
  
   public  void Drawing_on_Panel(JPanel jPanel2,JScrollPane jScrollPane1,String table){
-        
-
-    int CounterHorizontal=0,CounterVertical=0;
-  
+        int CounterHorizontal=0,CounterVertical=0;
+         Font font = new Font(Font.SERIF, Font.BOLD, 20);
+         
+         
     /////////////////////////////////Viewing the Images ///////////////////////////////////////////////////////////////////
         try {
              ArrayList<Image> images=Getting_images("Image",table);
              for(int i=0;i<images.size();i++){ 
                  
-                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250;} // this to can view in grid form 
+                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form 
                     JLabel label=new JLabel(); //Create label to contains this icon
                     label.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical,250,242));
                     Image myImg=images.get(i).getScaledInstance(label.getWidth()-50, label.getHeight()-120,Image.SCALE_SMOOTH);//scale the icon 
@@ -137,6 +138,9 @@ public class Products {
         } catch (SQLException ex) {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
         /////////////////////////////////Viewing the Informations ///////////////////////////////////////////////////////////////////
         
         CounterHorizontal=0;
@@ -145,7 +149,7 @@ public class Products {
             ArrayList<String> info=Getting_info("Info",table);
            for(int i=0;i<info.size();i++){       
                  
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form 
 
              JTextArea txt=new JTextArea();
              txt.setEditable(false);
@@ -168,6 +172,9 @@ public class Products {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
         }
      
+        
+        
+        
       /////////////////////////////////Viewing the Buttons(add to cart) ///////////////////////////////////////////////////////////////////
         
         CounterHorizontal=0;
@@ -180,7 +187,7 @@ public class Products {
            ArrayList<Image> images=Getting_images_blob("Image",table);
            for(int i=0;i<info.size();i++){    
                final int index = i;
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form 
               JButton b1=new JButton("Add to Cart");//create button of add cart
               b1.setIcon(getImageIcon(new File("E:\\My-Github\\ShoopingApp-JavaSwing\\Project-shooping\\src\\Controlling_the_products\\icons8-add-to-cart-40.png")));
               b1.setBackground(new Color(109,82,159));
@@ -203,22 +210,47 @@ public class Products {
         
         } catch (SQLException ex) {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     
+        } 
+      
+        
+        
+        
+           /////////////////////////////////Viewing the Prices Label///////////////////////////////////////////////////////////////////
+        CounterHorizontal=0;
+        CounterVertical=0;
+        try {
+           
+           ArrayList<String> price=Getting_info("Price",table);
+           for(int i=0;i<price.size();i++){    
+               final int index = i;
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form
+              JLabel l1=new JLabel("Price:"+price.get(index));//label of price
+              l1.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical+295,220,40));//seting label above the button
+              l1.setFont(font);
+              l1.setBackground(new Color(109,82,159));
+              CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
+              jPanel2.add(l1);
+           }
+         } catch (SQLException ex) {
+            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+
   }
   
   public void Drawing_Home_page(JPanel jPanel2,JScrollPane jScrollPane1){
-      
+      Font font = new Font(Font.SERIF, Font.BOLD, 20);
       String tables[]={"headphones","mobilephones","laptops","tv"};
         int CounterHorizontal=0,CounterVertical=0;
-  
+        
+        
+        
     /////////////////////////////////Viewing the Images ///////////////////////////////////////////////////////////////////
         try {
              int tab=0;
              while(tab<tables.length){
              ArrayList<Image> images=Getting_images("Image",tables[tab]);
              for(int i=0;i<images.size();i++){ 
-                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250; tab++; break;} // this to can view in grid form 
+                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
                     JLabel label=new JLabel(); //Create label to contains this icon
                     label.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical,250,242));
                     Image myImg=images.get(i).getScaledInstance(label.getWidth()-50, label.getHeight()-120,Image.SCALE_SMOOTH);//scale the icon 
@@ -233,6 +265,11 @@ public class Products {
         } catch (SQLException ex) {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
+        
         /////////////////////////////////Viewing the Informations ///////////////////////////////////////////////////////////////////
         
         CounterHorizontal=0;
@@ -243,7 +280,7 @@ public class Products {
             ArrayList<String> info=Getting_info("Info",tables[tab]);
            for(int i=0;i<info.size();i++){       
                  
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250; tab++; break;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
 
              JTextArea txt=new JTextArea();
              txt.setEditable(false);
@@ -267,6 +304,12 @@ public class Products {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+        
+        
+        
+        
+        
+        
          /////////////////////////////////Viewing the Buttons(add to cart) ///////////////////////////////////////////////////////////////////
         
         CounterHorizontal=0;
@@ -280,7 +323,7 @@ public class Products {
            ArrayList<Image> images=Getting_images_blob("Image",tables[tab]);
            for(int i=0;i<info.size();i++){    
                final int index = i;
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250;tab++; break;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
               JButton b1=new JButton("Add to Cart");//create button of add cart
               b1.setIcon(getImageIcon(new File("E:\\My-Github\\ShoopingApp-JavaSwing\\Project-shooping\\src\\Controlling_the_products\\icons8-add-to-cart-40.png")));
               b1.setBackground(new Color(109,82,159));
@@ -305,29 +348,35 @@ public class Products {
         } catch (SQLException ex) {
             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
         
         
         
         
+        ////////////////////////////////////////Drawing the price information/////////////////////////////////////////////////
+        
+        CounterHorizontal=0;
+        CounterVertical=0;
+        try {
+           int tab=0;
+            while(tab<tables.length){
+           ArrayList<String> price=Getting_info("Price",tables[tab]);
+           for(int i=0;i<price.size();i++){    
+               final int index = i;
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form
+              JLabel l1=new JLabel("Price:"+price.get(index));//label of price
+              l1.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical+295,220,40));//seting label above the button
+              l1.setFont(font);
+              l1.setBackground(new Color(109,82,159));
+              CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
+              jPanel2.add(l1);
+           }
+            }
+         } catch (SQLException ex) {
+            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+        }   
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-      
-  
   
   
   }

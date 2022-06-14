@@ -12,7 +12,7 @@ public class person {
      public boolean status_if_data_in_table=false;
      static public boolean seller_is_login=false;
      static public boolean user_is_login=false;
-     public static String company_name;
+     public static String company_name="elgamal";
      public  static String user_name;
      //==Regestriation Function takes the inputs from gui and add it to data base//
      public void Registeration(String name,String email,String address,String area,String phone,String password){
