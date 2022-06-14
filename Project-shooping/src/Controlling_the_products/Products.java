@@ -84,7 +84,7 @@ public class Products {
              for(int i=0;i<images.size();i++){ 
                  
                     if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250;} // this to can view in grid form 
-                    JLabel label=new JLabel(); //Create label to contains this icon
+                    JLabel label=new JLabel();     //Create label to contains this icon
                     label.setBounds(new Rectangle(20+CounterHorizontal,5+CounterVertical,250,242));
                     Image myImg=images.get(i).getScaledInstance(label.getWidth()-50, label.getHeight()-120,Image.SCALE_SMOOTH);//scale the icon 
                     ImageIcon newim=new ImageIcon(myImg);//load the image to icon 
