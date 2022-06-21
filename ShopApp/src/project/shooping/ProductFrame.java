@@ -11,18 +11,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Controlling_the_products.Products;
 import Controlling_the_products.person;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import shopapp.LoginFrame;
 public class ProductFrame extends javax.swing.JFrame {
     /////////////////////////////Intializations////////////////////////////////////////////////////
     JLabel [] labels; //This array of the top buttons 
-  
+    public static boolean visbilty=true;
     public ProductFrame() {
- 
-        
-        
+   
         initComponents();
         showing_home_page();
-       
+        person How_is_in=new person();
+        if(How_is_in.seller_is_login){ViewProductLabel.setVisible(true);AddProductLabel.setVisible(true);Cart.setVisible(false);}
+        else if(How_is_in.user_is_login){ViewProductLabel.setVisible(false);AddProductLabel.setVisible(false);Cart.setVisible(true);}
+        
+        
+        
+        
     jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
     @Override
     protected void configureScrollBarColors() {
@@ -67,7 +76,7 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         LogOutLabel = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        ViewProductLabel = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
         SmartPhonesPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -143,6 +152,9 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
         Home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HomeMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 HomeMouseExited(evt);
             }
@@ -202,26 +214,29 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
         LogOutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogOutLabelMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 LogOutLabelMouseExited(evt);
             }
         });
 
-        jLabel9.setBackground(new java.awt.Color(109, 82, 159));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-year-view-50.png"))); // NOI18N
-        jLabel9.setToolTipText("ViewYouProducts");
-        jLabel9.setOpaque(true);
-        jLabel9.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        ViewProductLabel.setBackground(new java.awt.Color(109, 82, 159));
+        ViewProductLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-year-view-50.png"))); // NOI18N
+        ViewProductLabel.setToolTipText("ViewYouProducts");
+        ViewProductLabel.setOpaque(true);
+        ViewProductLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLabel9MouseMoved(evt);
+                ViewProductLabelMouseMoved(evt);
             }
         });
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        ViewProductLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                ViewProductLabelMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel9MouseExited(evt);
+                ViewProductLabelMouseExited(evt);
             }
         });
 
@@ -238,7 +253,7 @@ public class ProductFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
+                .addComponent(ViewProductLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddProductLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -260,7 +275,7 @@ public class ProductFrame extends javax.swing.JFrame {
                     .addComponent(AddProductLabel)
                     .addComponent(jLabel1)
                     .addComponent(LogOutLabel)
-                    .addComponent(jLabel9))
+                    .addComponent(ViewProductLabel))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -589,6 +604,19 @@ public class ProductFrame extends javax.swing.JFrame {
         jTextField1.setText("Search");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/project/shooping/icons8-google-web-search-40.png"))); // NOI18N
+        jLabel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jLabel8MouseMoved(evt);
+            }
+        });
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel8MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -773,14 +801,15 @@ public class ProductFrame extends javax.swing.JFrame {
     private void CartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CartMouseClicked
          AllInPanel.removeAll();
          Cart cr=new Cart();
-         person pr=new person();
-         cr.view_product(AllInPanel, jScrollPane1,"'MohamedAli'");
+         person PersonHowLogin=new person();
+         System.out.println("The person how prees is="+PersonHowLogin.user_name);
+         cr.view_product(AllInPanel, jScrollPane1,PersonHowLogin.user_name);
          AllInPanel.revalidate();
          AllInPanel.repaint();
     }//GEN-LAST:event_CartMouseClicked
 
     private void LogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutMouseClicked
-        System.exit(0);
+        this.setVisible(false);
     }//GEN-LAST:event_LogOutMouseClicked
 
     private void HomePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomePanelMouseClicked
@@ -791,9 +820,9 @@ public class ProductFrame extends javax.swing.JFrame {
     private void AddProductLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddProductLabelMouseClicked
         // TODO add your handling code here:
         
-        AllInPanel.removeAll();
-         Company pr=new Company();
-         pr.display_add_product(AllInPanel, jScrollPane1);
+         AllInPanel.removeAll();
+         Company cr=new Company();
+         cr.display_add_product(AllInPanel, jScrollPane1);
          AllInPanel.revalidate();
          AllInPanel.repaint();        
                 
@@ -809,21 +838,58 @@ public class ProductFrame extends javax.swing.JFrame {
         setLabelBackground(AddProductLabel);
     }//GEN-LAST:event_AddProductLabelMouseMoved
 
-    private void jLabel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseExited
-        resetLabelBackground(jLabel9);
-    }//GEN-LAST:event_jLabel9MouseExited
+    private void ViewProductLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewProductLabelMouseExited
+        resetLabelBackground(ViewProductLabel);
+    }//GEN-LAST:event_ViewProductLabelMouseExited
 
-    private void jLabel9MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseMoved
-        setLabelBackground(jLabel9);
-    }//GEN-LAST:event_jLabel9MouseMoved
+    private void ViewProductLabelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewProductLabelMouseMoved
+        setLabelBackground(ViewProductLabel);
+    }//GEN-LAST:event_ViewProductLabelMouseMoved
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+    private void ViewProductLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewProductLabelMouseClicked
          AllInPanel.removeAll();
          Company pr=new Company();
          pr.vieew_my_product(AllInPanel, jScrollPane1);
          AllInPanel.revalidate();
          AllInPanel.repaint(); 
-    }//GEN-LAST:event_jLabel9MouseClicked
+    }//GEN-LAST:event_ViewProductLabelMouseClicked
+
+    private void LogOutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutLabelMouseClicked
+        
+       this.setVisible(false);
+       this.dispose();
+       new LoginFrame().setVisible(true);
+       
+    }//GEN-LAST:event_LogOutLabelMouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+         AllInPanel.removeAll();
+         Products pr=new Products();
+         pr.search(AllInPanel, jScrollPane1,jTextField1.getText());
+         AllInPanel.revalidate();
+         AllInPanel.repaint(); 
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
+        resetLabelBackground(jLabel8);
+    }//GEN-LAST:event_jLabel8MouseExited
+
+    private void jLabel8MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseMoved
+        setLabelBackground(jLabel8);
+    }//GEN-LAST:event_jLabel8MouseMoved
+
+    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
+         AllInPanel.removeAll();
+         person pr=new person();
+        try {
+            pr.view_your_information(AllInPanel, jScrollPane1);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(jPanel2, "There are problem while getting your information");
+            Logger.getLogger(ProductFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         AllInPanel.revalidate();
+         AllInPanel.repaint();
+    }//GEN-LAST:event_HomeMouseClicked
 
     public void showing_home_page(){
         AllInPanel.removeAll();
@@ -877,7 +943,7 @@ public class ProductFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProductFrame().setVisible(true);
+                new ProductFrame().setVisible(visbilty);
             }
         });
     }
@@ -900,6 +966,7 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JPanel SmartPhonesPanel;
     private javax.swing.JLabel TelevisonIcon;
     private javax.swing.JPanel TelevisonPanel;
+    private javax.swing.JLabel ViewProductLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -908,7 +975,6 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

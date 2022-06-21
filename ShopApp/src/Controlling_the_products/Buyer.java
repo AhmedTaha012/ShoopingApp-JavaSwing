@@ -13,7 +13,7 @@ public class Buyer extends person{
     String username;
     Buyer()
     {
-        this.username=super.user_name="MohamedAli";
+        this.username=super.user_name;
     }
     public void Add_to_cart(int id,String info,String price,Blob img)
     {

@@ -48,27 +48,28 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import project.shooping.PaymentFrame;
 import project.shooping.ProductFrame;
-import project.shooping.Trying;
+
 /**
  *
  * @author DELL
  */
 public class Company extends person{
      public boolean Add_product_status=false;
-     public void Registeration(String name,String email,String address,String phone,String password,String CompanyName,int CompanyId ){
+     
+     public void Registeration(String name,String email,String address,String phone,String password,String CompanyName){
                try {
                      super.company_name=CompanyName;
                      Connection myConn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/datausage","root","root99");
                     Statement mystamt=myConn.createStatement();
                     ResultSet myRs=mystamt.executeQuery("select*from seller");
-                     while(myRs.next()){if(myRs.getInt("SellerId")==CompanyId&&myRs.getString("UserName")==name&&myRs.getString("email")==email){status_if_data_in_table=true;}}
+                     while(myRs.next()){if(myRs.getString("UserName")==name&&myRs.getString("email")==email){status_if_data_in_table=true;}}
                          name="'"+name+"'";
                         email="'"+email+"'";
                         address="'"+address+"'";
                          password="'"+password+"'";
                         CompanyName="'"+CompanyName+"'";
                          phone="'"+phone+"'";
-                     String sql="insert into seller"+"(SellerId, Phone, CompanyName, UserName, Password, Address, email)"+"values ("+CompanyId+","+phone+","+CompanyName+","+name+","+password+","+address+","+email+")";
+                     String sql="insert into seller"+"(Phone, CompanyName, UserName, Password, Address, email)"+"values ("+phone+","+CompanyName+","+name+","+password+","+address+","+email+")";
                     mystamt.executeUpdate(sql); 
                  
              } catch (SQLException ex) {
@@ -171,10 +172,7 @@ public class Company extends person{
                                    JOptionPane.showMessageDialog(jPanel2, "You not choose correct Icon");
 
                                  }
-                              
                                    add_product(jPanel2);
-                              
-                              
                                  }
 
                                  }
@@ -191,16 +189,6 @@ public class Company extends person{
                             Connection myConn;
                             myConn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/datausage","root","root99");
                             PreparedStatement mystamt1=null;
-                            if( type_selected.equals("tv")){
-                               mystamt1=myConn.prepareStatement("insert into "+ type_selected+" (Id, Info, Price,Image,CompanyName) values(?,?,?,?,?)");
-                               mystamt1.setInt(1, id);
-                               mystamt1.setString(2, Information);
-                               mystamt1.setString(3, "EGP"+Price_Of_Product);
-                               mystamt1.setBlob(4, in_of_icon);
-                               mystamt1.setString(5,super.company_name);
-                               mystamt1.executeUpdate();
-                            }
-                            else{
                                 mystamt1=myConn.prepareStatement("insert into "+type_selected+" (Id, Info, Price, PriceSymbol, Image,CompanyName) values(?,?,?,?,?,?)");
                                    mystamt1.setInt(1, id);
                                    mystamt1.setString(2, Information);
@@ -210,7 +198,6 @@ public class Company extends person{
                                    mystamt1.setString(6,super.company_name);
                                    mystamt1.executeUpdate();
                                 JOptionPane.showMessageDialog(jPanel2, "You Add the product succesufly");
-                            }
 
                         } catch (SQLException ex) {
                             Add_product_status=true;
@@ -239,17 +226,15 @@ public class Company extends person{
      
 
      public void vieew_my_product(JPanel jPanel2,JScrollPane jScrollPane1){
-           
+
+         
       Font font = new Font(Font.SERIF, Font.BOLD, 20);
-      String tables[]={"headphones","mobilephones","laptops","tv"};
       int CounterHorizontal=0,CounterVertical=0;
             /////////////////////////////////Viewing the Images ///////////////////////////////////////////////////////////////////
         try {
-             int tab=0;
-             while(tab<tables.length){
-             ArrayList<Image> images=Getting_images("Image",tables[tab]);
+             ArrayList<Image> images=Getting_images("Image");
              for(int i=0;i<images.size();i++){ 
-                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
+                    if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; } // this to can view in grid form 
                     JLabel label=new JLabel(); //Create label to contains this icon
                     label.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical,250,242));
                     Image myImg=images.get(i).getScaledInstance(label.getWidth()-50, label.getHeight()-120,Image.SCALE_SMOOTH);//scale the icon 
@@ -259,28 +244,26 @@ public class Company extends person{
                     CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
                     jPanel2.setPreferredSize(new Dimension(jScrollPane1.getWidth(),jScrollPane1.getHeight()+CounterVertical)); //This for extends the panel 
                     }
-             tab++;
-             }
+         
  
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
-        
+
+
+
         
         /////////////////////////////////Viewing the Informations ///////////////////////////////////////////////////////////////////
         
         CounterHorizontal=0;
         CounterVertical=0;
         try {
-             int tab=0;
-             while(tab<tables.length){
-            ArrayList<String> info=Getting_info("Info",tables[tab]);
+             
+            ArrayList<String> info=Getting_info("Info");
            for(int i=0;i<info.size();i++){       
                  
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form 
 
              JTextArea txt=new JTextArea();
              txt.setEditable(false);
@@ -298,13 +281,16 @@ public class Company extends person{
               CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
              jPanel2.add(txt);
            }
-           tab++;
-             }
+
    
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+        
+        
+        
+        
         
         
         
@@ -317,13 +303,13 @@ public class Company extends person{
         CounterVertical=0;
         try {
             int tab=0;
-            while(tab<tables.length){
-           ArrayList<String> info=Getting_info("Info",tables[tab]);
-           ArrayList<String> price=Getting_info("Price",tables[tab]);
-           ArrayList<Integer> id=Getting_info_int("Id",tables[tab]);
+          
+           ArrayList<String> info=Getting_info("Info");
+           ArrayList<String> price=Getting_info("Price");
+           ArrayList<Integer> id=Getting_info_int("Id");
            for(int i=0;i<info.size();i++){    
              final int index = i;
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form 
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form 
               JButton b1=new JButton("Remove From Store");//create button of add cart
               b1.setIcon(getImageIcon(new File("E:\\My-Github\\ShoopingApp-JavaSwing\\Project-shooping\\src\\Controlling_the_products\\icons8-add-to-cart-40.png")));
               b1.setBackground(new Color(109,82,159));
@@ -332,9 +318,10 @@ public class Company extends person{
                         {
                          
                           public void actionPerformed (ActionEvent e) { 
-                                      
-                                      
-                                       
+                          
+                            String table_choose=get_which_table(id.get(index));
+                            if(table_choose.equals("null")){  JOptionPane.showMessageDialog(jPanel2, "The product are not in the store refresh and try again");}
+                            else{delete_product(id.get(index),table_choose,jPanel2);}          
                           }
                         });
              CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
@@ -342,12 +329,11 @@ public class Company extends person{
              
 
        }
-           tab++;
-            }
+           
         
         
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -359,11 +345,11 @@ public class Company extends person{
         CounterVertical=0;
         try {
            int tab=0;
-            while(tab<tables.length){
-           ArrayList<String> price=Getting_info("Price",tables[tab]);
+
+           ArrayList<String> price=Getting_info("Price");
            for(int i=0;i<price.size();i++){    
                final int index = i;
-             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40; tab++; break;} // this to can view in grid form
+             if(i%5==0 && i!=0){CounterHorizontal=0;CounterVertical=CounterVertical+250+40;} // this to can view in grid form
               JLabel l1=new JLabel("Price:"+price.get(index));//label of price
               l1.setBounds(new Rectangle(20+CounterHorizontal,CounterVertical+295,220,40));//seting label above the button
               l1.setFont(font);
@@ -371,9 +357,9 @@ public class Company extends person{
               CounterHorizontal=CounterHorizontal+260; // the incremant on x axis
                jPanel2.add(l1);
             }
-              tab++;}
+          
           } catch (SQLException ex) {
-             Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
          }
       
         
@@ -383,31 +369,17 @@ public class Company extends person{
      
      
      
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
 ///////////function to geeting the image of any table from data base in array list  asn icon to added to the tabel
- public ArrayList Getting_images(String col,String tab) throws SQLException{
+ public ArrayList Getting_images(String col) throws SQLException{
      ///////////////////////////connection to database///////////////////////////////////////////////////////////////
             Connection myConn;
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                    "SELECT " +col+ " FROM" + tab + " where CompanyName='elgamal'"
+                   "SELECT " +col+ " FROM " + "tv" + " where CompanyName='"+super.company_name+"'"
+                            + " union" +" SELECT " +col+ " FROM " + "laptops" + " where CompanyName='"+super.company_name+"'" 
+                            + " union" +" SELECT " +col+ " FROM " + "mobilephones" + " where CompanyName='"+super.company_name+"'" 
+                            + " union" +" SELECT " +col+ " FROM " + "headphones" + " where CompanyName='"+super.company_name+"'" 
             );
             ArrayList<Image> images=new ArrayList<Image>();
              while(myRs.next()){
@@ -421,12 +393,15 @@ public class Company extends person{
  }
      //function to getting the coloum for any table in data base in arralist to retun the strings only
     
-  public  ArrayList Getting_info(String col,String tab) throws SQLException{
+  public  ArrayList Getting_info(String col) throws SQLException{
             Connection myConn;
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                    "SELECT " +col+ " FROM" + tab + " where CompanyName='elgamal'"
+                   "SELECT " +col+ " FROM " + "tv" + " where CompanyName='"+super.company_name+"'"
+                            + " union" +" SELECT " +col+ " FROM " + "laptops" + " where CompanyName='"+super.company_name +"'"
+                            + " union" +" SELECT " +col+ " FROM " + "mobilephones" + " where CompanyName='"+super.company_name+"'" 
+                            + " union" +" SELECT " +col+ " FROM " + "headphones" + " where CompanyName='"+super.company_name +"'"
             );
             ArrayList<Object > Info=new ArrayList<Object>();
             while(myRs.next()){
@@ -439,13 +414,16 @@ public class Company extends person{
          
     //function to getting the coloum for any table in data base in arralist to retun the strings only
     
- public  ArrayList Getting_info_int(String col,String tab) throws SQLException{
+ public  ArrayList Getting_info_int(String col) throws SQLException{
             Connection myConn;
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
                     
-                    "SELECT " +col+ " FROM" + tab + " where CompanyName='elgamal'"
+                            "SELECT " +col+ " FROM " + "tv" + " where CompanyName='"+super.company_name+"'"
+                            + " union" +" SELECT " +col+ " FROM " + "laptops" + " where CompanyName='"+super.company_name+"'" 
+                            + " union" +" SELECT " +col+ " FROM " + "mobilephones" + " where CompanyName='"+super.company_name +"'"
+                            + " union" +" SELECT " +col+ " FROM " + "headphones" + " where CompanyName='"+super.company_name +"'"
                     
             );
             ArrayList<Object > Info=new ArrayList<Object>();
@@ -456,136 +434,61 @@ public class Company extends person{
           return Info;
   
   }
-  
-     
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-//         try {
-//            // TODO add your handling code here:
-//            Connection myConn;
-//            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
-//            Statement mystamt=myConn.createStatement();
-//            int countery=0;
-//            int counterx=0;
-//            String []element={"tv","laptops","mobilephones","headphones"};
-//            for (int i=0;i<4;i++){
-//                ResultSet myRs=mystamt.executeQuery("select * from "+element[i]);
-//                System.out.println(element[i]);
-//                while(myRs.next()){
-//                    if(super.company_name.equals(myRs.getString("CompanyName"))){
-//                        //label.setBounds(0,countery, 300, 242);
-//                        ////////////////////read Image///////////////////////////////
-//                        byte []img=myRs.getBytes("Image");
-//                        ImageIcon image=new ImageIcon(img);
-//                        Image im=image.getImage();
-//                        JLabel label=new JLabel(); //Creat label to contains this icon
-//                        //////////////////////////////////////////////////////////
-//                        //////////////////////////Draw the label///////////////// 
-//                        label.setBounds(layerd.getX()+10, layerd.getY()+10+countery, 250, 242);
-//                        Image myImg=im.getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_SMOOTH);
-//                        ImageIcon newim=new ImageIcon(myImg);
-//                        label.setIcon(newim);
-//                        String elem=element[i];
-//                        /////////////////////////////////////////////////PUT INFO AND PRICE/////////////////////////////////
-//                        String info=myRs.getString("Info");
-//                        String price=myRs.getString("Price");
-//                        int Id=myRs.getInt("Id");
-//                        String Comapnyname=super.company_name;
-//                        JButton b1=new JButton("Modfiy");
-//                        counterx+=label.getHeight();
-//                        JTextArea t1=new JTextArea();
-//                        JTextArea t2=new JTextArea();
-//                        t1.setText(info);
-//                        t1.setBounds(label.getX()+label.getWidth()+10, label.getY(), 2000, 50);
-//                        t2.setText("Price:"+price+" EGP");
-//                        t2.setBounds(label.getX()+label.getWidth()+10, label.getY()+60, 2000, 50);
-//                        b1.setBounds(label.getX()+label.getWidth()+10,label.getY()+180,150,50);
-//                        JButton b2=new JButton("Save");
-//                        b2.setBounds(label.getX()+label.getWidth()+300,label.getY()+180,150,50);
-//                        p1.add(b2);
-//                        b1.addActionListener(new ActionListener()
-//                        {
-//                            
-//                          public void actionPerformed (ActionEvent e) {    
-//                                try {
-//                                    Company c3=new Company();
-//                                    String sql="delete from "+elem+" where Id="+Id;
-//                                    int rowAffected=mystamt.executeUpdate(sql);
-//                                    System.out.println(rowAffected);
-//                                    t1.setText("Remove this text then insert your product info");
-//                                    t2.setText("Remove this text then insert your product price the press sava");
-//                                    InputStream in;
-//                                    final JFileChooser fileChooser = new JFileChooser();
-//                                    String tx3;
-//                                    //JOptionPane.showMessageDialog(layerd,fileChooser,"Choosee your icon",4);
-//                                    //JOptionPane.showMessageDialog(fileChooser, "Choose the icon");
-//                                    JOptionPane.showInputDialog(fileChooser);
-//                                    tx3=JOptionPane.showInputDialog("Enter your price symbol");
-//                                    in = new FileInputStream(fileChooser.getSelectedFile().getPath());
-//                                    c3.save_button_action(b2, elem, t1, t2,in,tx3);
-//                                    System.out.println(fileChooser.getSelectedFile().getPath());
-//                                } catch (SQLException ex) {
-//                                    Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
-//                                } catch (FileNotFoundException ex) {
-//                                  Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
-//                              }
-//                                    }
-//                        });
-//                        
-//                       
-//                        t1.setBackground(Color.WHITE);
-//                        t2.setBackground(Color.WHITE);
-//                        Font font = new Font(Font.SERIF, Font.BOLD, 20);
-//                        t1.setFont(font);
-//                        t1.setBorder(BorderFactory.createEmptyBorder());
-//                        t2.setFont(font);
-//                        t2.setBorder(BorderFactory.createEmptyBorder());
-//                        p1.add(b1);
-//                        p1.add(t1);
-//                        p1.add(t2);
-//                        countery+=252;
-//                        p1.setPreferredSize(new Dimension(layerd.getX()+countery, layerd.getY()+countery+100));
-//                        p1.add(label);
-//        }}
-//        }
-//        }
-//            catch (SQLException ex) {
-//           
-//        }
-//     
 
-     
-     
-//     private void save_button_action(JButton b2,String elem,JTextArea t1,JTextArea t2,InputStream in,String tx3){
-//           b2.addActionListener(new ActionListener(){ 
-//                                        public void actionPerformed (ActionEvent e) {
-//                                                Company c1=new Company();
-//                                                System.out.println(elem);
-//                                                String tx1= t1.getText();
-//                                                String tx2 =t2.getText();
-//                                                c1.Add_products(tx1, tx2,tx3, in, elem);
-//                                            
-//                                        }});
-//     
-//     
-//     }
-     
     
+ /////This function sql statment of delete the product 
+ public void delete_product(int Id,String table,JPanel jPanel2){
+         try {
+             Connection myConn;
+             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
+             Statement mystamt=myConn.createStatement();
+             String sql="delete from "+table+" where Id="+Id;
+             int rowAffected=mystamt.executeUpdate(sql);
+             System.out.println(rowAffected);
+             
+         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(jPanel2, "There are Problem While delete the product Try again after refresh");
+             Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
+         }
+ 
+ 
+ 
+ 
+ }
+ String get_which_table(int Id){
+   try {
+         
+          
+             Connection myConn;
+             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
+             Statement mystamt=myConn.createStatement();
+             ResultSet myRs=mystamt.executeQuery(
+                         "select distinct 'tv' as tablename from tv where Id="+Id
+                                 +" union "+"select distinct 'mobilephones' as tablename from mobilephones where Id="+Id
+                                    +" union "+"select distinct 'headphones' as tablename from headphones where Id="+Id
+                                     +" union "+"select distinct 'laptops' as tablename from laptops where Id="+Id
+             ); 
+               while(myRs.next()){ return myRs.getString(1);}
+             
+         } catch (SQLException ex) {
+             Logger.getLogger(Company.class.getName()).log(Level.SEVERE, null, ex);
+         }
+ 
+    return "null";
+         
+ } 
+
+    public void Add_products(String info, String price, String symbol, InputStream in, String type) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void vieew_my_product(JPanel p1, JLayeredPane layerd) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
+
+
+
 }

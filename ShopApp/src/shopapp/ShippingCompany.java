@@ -1,9 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Controlling_the_products;
-
+package shopapp;
+//importing needed libraries
 import Controlling_the_products.person;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,12 +8,9 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author DELL
- */
+// This class is for shipping registration
 public class ShippingCompany extends person{
-    public void Registeration(int ShippingId, String Name, String Email, String Address,String Phone,String Area){
+    public void Registeration(String Name, String Email, String Address,String Phone,String Area){
          try {
                  Connection myConn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/datausage","root","root99");
                  Statement mystamt=myConn.createStatement();
@@ -26,15 +19,12 @@ public class ShippingCompany extends person{
                  Address="'"+Address+"'";
                  Area="'"+Area+"'";
                  Phone="'"+Phone+"'";
-                 String sql="insert into shipping"+"(ShippingId, Name, Email, Address, Phone, Area)"+"values ("+ShippingId+","+Name+","+Email+","+Address+","+Phone+","+Area+")";
-                 mystamt.executeUpdate(sql); 
-                 
+                 String sql="insert into shipping"+"(Name, Email, Address, Phone, Area)"+"values ("+Name+","+Email+","+Address+","+Phone+","+Area+")";
+                 mystamt.executeUpdate(sql);     
              } catch (SQLException ex) {
                  super.status_if_data_in_table=true;
-                 Logger.getLogger(person.class.getName()).log(Level.SEVERE, null, ex);
-                 
+                 Logger.getLogger(person.class.getName()).log(Level.SEVERE, null, ex);   
              }
-    
     }
     
 }

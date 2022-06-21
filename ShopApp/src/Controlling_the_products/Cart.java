@@ -29,7 +29,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import project.shooping.Trying;
 import project.shooping.PaymentFrame;
 import project.shooping.ProductFrame;
 public class Cart {
@@ -44,7 +43,7 @@ public class Cart {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                    "SELECT DISTINCT "+col+ " FROM "+tab+" where"+" UserName="+UserName
+                    "SELECT DISTINCT "+col+ " FROM "+tab+" where"+" UserName='"+UserName+"'"
             );
             ArrayList<Object > Info=new ArrayList<Object>();
             while(myRs.next()){
@@ -61,7 +60,7 @@ public class Cart {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                    "SELECT DISTINCT "+col+ " FROM "+tab+" where"+" UserName="+UserName
+                    "SELECT DISTINCT "+col+ " FROM "+tab+" where"+" UserName='"+UserName+"'"
             );
             ArrayList<Object > Info=new ArrayList<Object>();
             while(myRs.next()){
@@ -80,7 +79,7 @@ public class Cart {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                    "SELECT  "+col+ " FROM "+tab+" where"+" UserName="+UserName
+                    "SELECT  "+col+ " FROM "+tab+" where"+" UserName='"+UserName+"'"
             );
             ArrayList<Image> images=new ArrayList<Image>();
              while(myRs.next()){
@@ -124,7 +123,7 @@ public class Cart {
                     }
  
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         /////////////////////////////////Viewing the Informations ///////////////////////////////////////////////////////////////////
@@ -155,7 +154,7 @@ public class Cart {
            }
    
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }
      
       /////////////////////////////////Viewing the Buttons(add to cart) ///////////////////////////////////////////////////////////////////
@@ -189,7 +188,7 @@ public class Cart {
         
    
         } catch (SQLException ex) {
-            Logger.getLogger(Trying.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
         }  
         
         try {
@@ -293,7 +292,7 @@ public class Cart {
         try{
             Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement myst= conn.createStatement();
-            myst.executeUpdate("delete from cart where UserName="+user+" and Info='"+inf+"'");
+            myst.executeUpdate("delete from cart where UserName='"+user+"' and Info='"+inf+"'");
         }catch(Exception ex)
         {
             System.out.println(ex.getMessage());
@@ -305,7 +304,7 @@ public class Cart {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datausage","root","root99");
             Statement mystamt=myConn.createStatement();
             ResultSet myRs=mystamt.executeQuery(
-                 "select cast(sum(replace(Price,"+"','"+","+"''"+")) As double )As Price from datausage.cart where UserName="+UserName
+                 "select cast(sum(replace(Price,"+"','"+","+"''"+")) As double )As Price from datausage.cart where UserName='"+UserName+"'"
             );
   ArrayList<Double> cost=new ArrayList<Double>();
     while(myRs.next()){cost.add(myRs.getDouble(1));}
