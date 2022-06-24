@@ -7,10 +7,13 @@ Here is our project to implemets the conccepts of oop and gui usig java swing an
 ## Login Page:
 ![image](https://user-images.githubusercontent.com/96799091/175448048-3991fde5-48b1-4e74-b00e-3df2ca5e33ee.png)
 ## Register Page:
-![image](https://user-images.githubusercontent.com/96799091/175448593-94bbd55d-d8ce-4902-b9fe-e32f0be48998.png)
+![2022-06-24-04-14-21](https://user-images.githubusercontent.com/96799091/175448885-43a086be-d653-48a2-a101-b8da634fb76b.png)
 ## Products Page:
-![image](https://user-images.githubusercontent.com/96799091/175448461-2578511f-ab04-48b5-bbaf-f04872a0f521.png)
+![2022-06-24-04-12-51](https://user-images.githubusercontent.com/96799091/175448871-90298b03-81ab-4838-8c91-13c31f72a086.png)
 ## Search:
-![image](https://user-images.githubusercontent.com/96799091/175448505-7dc1ac79-0425-474f-9c41-999c0255a8e0.png)
+![2022-06-24-04-13-23](https://user-images.githubusercontent.com/96799091/175448812-262810d7-de11-4a1c-b1b7-1a6ad8b6b866.png)
 ## Show your cart:
-![image](https://user-images.githubusercontent.com/96799091/175448526-f956d303-e825-45e7-bcdd-66b70887f4b5.png)
+![2022-06-24-04-13-35](https://user-images.githubusercontent.com/96799091/175448788-7247c818-c67b-428e-a173-de22158a5c9d.png)
+
+
+
