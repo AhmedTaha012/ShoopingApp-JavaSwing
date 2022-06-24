@@ -1,6 +1,6 @@
 # ShoopingApp-JavaSwing
 Here is our project to implemets the conccepts of oop and gui usig java swing and mysql for data base
-# Requrements 
+# Requirements
 -Java jdk \
 -MySql Local Server for database 
 # Functions of projects
